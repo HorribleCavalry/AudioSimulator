@@ -1,7 +1,7 @@
 TemplateAudioParentPath='C:\Users\XINDONG\Desktop\Piano';
 SourceAudioPath='C:\Users\XINDONG\Desktop\CanKillMyHorse.wav';
 PlayFrequency=4;
-MinFrequencyAmplitude=0.1;
+MinFrequencyAmplitude=0.05;
 MinStartAmplitude = 0.02;
 
 TemplateAudioFiles=dir(fullfile(TemplateAudioParentPath,'*.wav'));
@@ -70,7 +70,7 @@ end
 % 
 OutputAudioWave=[];
 % 
-% for i=1:SourceAudio.Size/DeltaSize
+% for i=1:floor(SourceAudio.Size/DeltaSize)
 for i=1:1
     for j=1:length(TemplateAudioArray)
         TemplateAudioArray(j).MaxPlayAmplitudeRate = [0;0];
@@ -85,7 +85,9 @@ for i=1:1
     F=transpose((0:N-1)*(Fs/N));
     F=F(1:floor(N/2));
     
-    FindTable=find(Fa>=MinFrequencyAmplitude);
+    [FindRow,FindColumn]=find(Fa>=MinFrequencyAmplitude);
+    FindTable=[FindRow,FindColumn];
+    [RowNum,ColumnNum]=size(FindTable);
 %     
 % %     for j=1:length(FindColumn)
 % %         for k=1:length(FindRow)
@@ -117,4 +119,4 @@ for i=1:1
 %     end
 %     
 end
-plot(F,Fa)
+FindTable
