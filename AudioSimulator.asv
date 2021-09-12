@@ -1,9 +1,8 @@
 TemplateAudioParentPath='D:\GitSpace\AudioSimulator\Piano';
 SourceAudioPath='D:\GitSpace\AudioSimulator\CanKillMyHorse.wav';
-PlayFrequency=20;%把播放频率改为每秒20下，高质量还原你的DNA
-MinFrequencyAmplitude=0;
+PlayFrequency=4;
+MinFrequencyAmplitude=0.001;
 MinStartAmplitude = 0.02;
-OutputAudioScale=0.1
 
 TemplateAudioFiles=dir(fullfile(TemplateAudioParentPath,'*.wav'));
 TemplateAudioNames={TemplateAudioFiles.name};
@@ -54,7 +53,8 @@ end
 
 OutputAudioWave=[];
 
-for i=1:floor(SourceAudio.Size/DeltaSize)
+% for i=1:floor(SourceAudio.Size/DeltaSize)
+for i=1:40
     for j=1:length(TemplateAudioArray)
         TemplateAudioArray(j).MaxPlayAmplitudeRate = [0;0];
     end
@@ -92,5 +92,5 @@ for i=1:floor(SourceAudio.Size/DeltaSize)
     end
     OutputAudioWave=[OutputAudioWave;ParOutputAudio];
 end
-OutputAudioWave=OutputAudioScale*OutputAudioWave;
-sound(OutputAudioWave,Fs)
+OutputAudioWave=
+sound(OutputAudioWave(1:10*Fs,1:2),Fs)
